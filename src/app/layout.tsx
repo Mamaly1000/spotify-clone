@@ -27,7 +27,7 @@ export default async function RootLayout({
       <body
         className={
           EncodeFont.className +
-          " bg-background text-text  min-w-full max-w-full overflow-hidden"
+          " bg-background text-text  min-w-full max-w-full overflow-y-auto overflow-x-hidden max-h-screen"
         }
       >
         <ToastProvider />
@@ -35,9 +35,7 @@ export default async function RootLayout({
           <UserProvider>
             <CustomThemeProvider>
               <ModalProvider />
-              <Player>
-                <MainSideBar songs={myLibrary}>{children}</MainSideBar>
-              </Player>
+              <Player>{children}</Player>
             </CustomThemeProvider>
           </UserProvider>
         </SupabaseProvider>

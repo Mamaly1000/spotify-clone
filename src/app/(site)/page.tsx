@@ -1,17 +1,18 @@
-import { Box } from "@mui/material";
+"use client";
 import CustomHeader from "./Header";
 import SelectedSongPreview from "@/components/preview/SelectedSongPreview";
-import CustomModal from "@/components/modal/CustomModal";
-import getSongs from "@/actions/getSongs";
 import SongsList from "@/components/list/SongsList";
+import useSongs from "@/hooks/useSongs";
 export const revalidate = 0;
-export default async function Home() {
-  const songs = await getSongs();
+export default function Home() {
+  const { songs } = useSongs();
 
   return (
-    <main className="relative min-w-full max-w-full  flex flex-col bg-gradient-to-b from-primary to-secondary items-start justify-start  min-h-screen overflow-auto max-h-screen">
+    <main 
+      className="relative bg-transparent min-w-full max-w-full flex flex-col items-start justify-start min-h-full max-h-fit"
+    >
       <CustomHeader />
-      <SelectedSongPreview /> 
+      <SelectedSongPreview songs={songs} />
       <SongsList songs={songs} />
     </main>
   );

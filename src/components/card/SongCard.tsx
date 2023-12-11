@@ -38,7 +38,7 @@ const SongCard = ({ song, songs }: { songs?: Song[]; song: Song }) => {
             alt={song.title}
             width={182}
             height={182}
-            className="object-cover z-0"
+            className="object-cover z-0 min-h-[182px] max-h-[182px] min-w-[182px] max-w-[182px]"
           />
           <SongCardActions
             onClick={() => {
@@ -50,11 +50,11 @@ const SongCard = ({ song, songs }: { songs?: Song[]; song: Song }) => {
           />
         </div>
         <div
-          className="absolute start-0 top-1 min-w-[20px] min-h-[120px] rounded-lg drop-shadow-2xl "
+          className="absolute start-1 bottom-3 min-w-[5px] min-h-[30px] rounded-[3px] drop-shadow-2xl "
           style={{ background: song.color_theme || gradientGenerator() }}
         ></div>
         <div
-          className="absolute bottom-0 start-0 min-w-full rounded-b-lg min-h-[20px]  z-10"
+          className="absolute bottom-1 start-3 min-w-[90%] rounded-[3px] min-h-[5px]  z-10"
           style={{ background: song.color_theme || gradientGenerator() }}
         ></div>
       </div>

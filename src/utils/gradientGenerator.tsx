@@ -1,4 +1,11 @@
-export const gradientGenerator = (): string => {
+export const gradientGenerator = (type?: "rgb" | "gradient"): string => {
+  if (type === "rgb") {
+    const rgb = `rgba(${Math.floor(Math.random() * 255)} ${Math.floor(
+      Math.random() * 255
+    )} ${Math.floor(Math.random() * 255)})`;
+    return rgb;
+  }
+
   let color_1 = `rgba(${Math.floor(Math.random() * 255)} ${Math.floor(
     Math.random() * 255
   )} ${Math.floor(Math.random() * 255)}/ 1)`;

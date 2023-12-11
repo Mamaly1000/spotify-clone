@@ -1,16 +1,9 @@
 "use client";
-import {
-  Add,
-  Home,
-  MusicNote,
-  RemoveRedEye,
-  Search,
-} from "@mui/icons-material";
-import { Box, ListItem, Typography } from "@mui/material";
+import { Add, Home, MusicNote, Search } from "@mui/icons-material";
+import { Box, Typography } from "@mui/material";
 import { usePathname } from "next/navigation";
 import React, { ReactNode, useMemo } from "react";
 import CustomList from "../list/CustomList";
-import Card from "../library/Card";
 import { useUser } from "@/hooks/useUser";
 import useAuthModal from "@/hooks/useAuthModal";
 import useUploadModal from "@/hooks/useUploadModal";
@@ -19,6 +12,7 @@ import LibraryCard from "../card/LibraryCard";
 import Loader from "../loader/Loader";
 import usePlayer from "@/hooks/usePlayer";
 import useOnPlay from "@/hooks/useOnPlay";
+import useSongs from "@/hooks/useSongs";
 
 const MainSideBar = ({
   children,
@@ -27,6 +21,7 @@ const MainSideBar = ({
   children: ReactNode;
   songs?: Song[] | null;
 }) => {
+  const { style } = useSongs();
   const player = usePlayer();
   const pathname = usePathname();
   const onPlay = useOnPlay(songs!);
@@ -50,12 +45,12 @@ const MainSideBar = ({
     ],
     []
   );
-  // todo: check for subscription
 
   return (
     <Box
       sx={{
-        minHeight: "100vh",
+        minHeight: player.activeId ? "calc(100vh - 60px) !important" : "100vh",
+        maxHeight: player.activeId ? "calc(100vh - 60px) !important" : "100vh",
         overflow: "auto",
         color: "inherit",
         background: "inherit",
@@ -71,7 +66,6 @@ const MainSideBar = ({
           color: "inherit",
           position: "relative",
           maxHeight: "80vh",
-          top: !!player.activeId ? "50px" : "0",
         }}
         className="bg-secondary col-span-3 p-10   items-start justify-start gap-3 flex-col overflow-y-auto"
       >
@@ -117,8 +111,13 @@ const MainSideBar = ({
       <Box
         sx={{
           display: "flex",
+          minHeight: "content-fit",
+          maxHeight: player.activeId ? "90vh" : "100vh",
+          overflow: "auto",
+          ...style,
+          pb: "100px !important",
         }}
-        className=" min-w-full col-span-12 md:col-span-9 "
+        className=" min-w-full col-span-12 md:col-span-9  "
       >
         {children}
       </Box>

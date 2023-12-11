@@ -6,7 +6,15 @@ import usePlayer from "@/hooks/usePlayer";
 import useLoadSong from "@/hooks/useLoadSongURL";
 import PlayerContent from "./PlayerContent";
 import { useUser } from "@/hooks/useUser";
-const Player = ({ children }: { children: ReactNode }) => {
+import MainSideBar from "../sidebar/MainSideBar";
+import { Song } from "@/types/song";
+const Player = ({
+  children,
+  songs,
+}: {
+  songs?: Song[] | null;
+  children: ReactNode;
+}) => {
   const player = usePlayer();
   const { song } = useGetSongById(player.activeId);
   const { user } = useUser();
@@ -39,22 +47,23 @@ const Player = ({ children }: { children: ReactNode }) => {
   };
   return (
     <AppBar position="fixed" color="secondary" sx={{ top: "auto", bottom: 0 }}>
-      <Paper
-        className="col-span-12 min-w-full text-text"
-        sx={{ paddingBottom: 0, background: "rgba(0 0 0 /.4)" }}
-      >
-        {children}
-      </Paper>
-      {!!song && !!player.activeId && (
-        <Toolbar sx={{ maxHeight: { xs: "50px", md: "50px" } }}>
-          <PlayerContent
-            song={song}
-            songURL={songURL}
-            user={user}
-            key={songURL}
-            onNext={onPlayNext}
-            onPrev={onPlayPrevious}
-          />
+      <MainSideBar songs={songs}>{children}</MainSideBar>
+      {!!player.activeId && (
+        <Toolbar
+          sx={{
+            maxHeight: !!player.activeId ? "50px" : "0px",
+          }}
+        >
+          {song && (
+            <PlayerContent
+              song={song}
+              songURL={songURL}
+              user={user}
+              key={songURL}
+              onNext={onPlayNext}
+              onPrev={onPlayPrevious}
+            />
+          )}
         </Toolbar>
       )}
     </AppBar>

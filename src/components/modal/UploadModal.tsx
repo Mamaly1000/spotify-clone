@@ -78,7 +78,7 @@ const UploadModal = () => {
         .insert({
           title: values.title,
           user_id: user.id,
-          color_theme: gradientGenerator(),
+          color_theme: gradientGenerator("rgb"),
           singer: values.singer,
           image_path: imageData.path,
           song_path: songData.path,
