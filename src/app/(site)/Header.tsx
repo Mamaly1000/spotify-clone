@@ -31,24 +31,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-
-const pages = [
-  {
-    label: "Profile",
-    icon: <Dashboard sx={{ color: "var(--text-color) !important" }} />,
-    href: "/profile",
-  },
-  {
-    label: "login",
-    icon: <Login sx={{ color: "var(--text-color) !important" }} />,
-    href: "/login",
-  },
-  {
-    label: "register",
-    icon: <AppRegistration sx={{ color: "var(--text-color) !important" }} />,
-    href: "/register",
-  },
-];
+import usePlayer from "@/hooks/usePlayer";
 
 interface Props {
   window?: () => Window;
@@ -67,35 +50,28 @@ function HideOnScroll(props: Props) {
   );
 }
 
-function CustomHeader(props: any) {
+function CustomHeader(_props: any) {
   const router = useRouter();
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
+
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
   const supabaseClient = useSupabaseClient();
   const { user, isLoading } = useUser();
   const { onOpen } = useAuthModal();
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  const player = usePlayer();
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
-    // we have to reset any playing songs
     if (error) {
       toast.error(error.message);
     } else {
       router.refresh();
+      player.reset();
       toast.success(`${user?.email} logged out successfuly`);
     }
-  };
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -106,13 +82,6 @@ function CustomHeader(props: any) {
       !!user
         ? [
             {
-              label: "Profile",
-              icon: (
-                <Dashboard sx={{ color: "var(--text-color) !important" }} />
-              ),
-              href: "/profile",
-            },
-            {
               label: "Logout",
               icon: <Logout sx={{ color: "var(--text-color) !important" }} />,
               fn: () => {
@@ -121,24 +90,6 @@ function CustomHeader(props: any) {
             },
           ]
         : [
-            {
-              label: "Profile",
-              icon: (
-                <Dashboard sx={{ color: "var(--text-color) !important" }} />
-              ),
-              href: "/profile",
-            },
-            {
-              label: "SignUp",
-              icon: (
-                <AppRegistrationOutlined
-                  sx={{ color: "var(--text-color) !important" }}
-                />
-              ),
-              fn: () => {
-                onOpen();
-              },
-            },
             {
               label: "SignIn",
               icon: <Login sx={{ color: "var(--text-color) !important" }} />,
@@ -184,17 +135,13 @@ function CustomHeader(props: any) {
                 Spotify
               </Typography>
               <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
-                  <CustomButton
-                    buttonType="icon"
-                    onClick={!!!isLoading ? handleOpenUserMenu : undefined}
-                    className={`${
-                      isLoading ? "animate-pulse" : "animate-none"
-                    }`}
-                  >
-                    <Avatar alt="Remy Sharp" />
-                  </CustomButton>
-                </Tooltip>
+                <CustomButton
+                  buttonType="icon"
+                  onClick={!!!isLoading ? handleOpenUserMenu : undefined}
+                  className={`${isLoading ? "animate-pulse" : "animate-none"}`}
+                >
+                  <Avatar alt="Remy Sharp" />
+                </CustomButton>
                 <CustomMenu
                   sx={{ mt: "45px" }}
                   anchorElUser={anchorElUser}

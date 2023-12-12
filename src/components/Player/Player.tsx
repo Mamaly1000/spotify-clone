@@ -1,71 +1,32 @@
 "use client";
-import { AppBar, Paper, Toolbar } from "@mui/material";
+import { AppBar } from "@mui/material";
 import React, { ReactNode } from "react";
 import useGetSongById from "@/hooks/getSongById";
 import usePlayer from "@/hooks/usePlayer";
 import useLoadSong from "@/hooks/useLoadSongURL";
-import PlayerContent from "./PlayerContent";
-import { useUser } from "@/hooks/useUser";
 import MainSideBar from "../sidebar/MainSideBar";
-import { Song } from "@/types/song";
-const Player = ({
-  children,
-  songs,
-}: {
-  songs?: Song[] | null;
-  children: ReactNode;
-}) => {
+import useSongs from "@/hooks/useSongs";
+import useLoadImage from "@/hooks/useLoadImage";
+import MainSongPlayer from "./MainSongPlayer";
+import CustomSidebarDrawer from "../sidebar/CustomSidebarDrawer";
+import useLibrary from "@/hooks/useLibrary";
+const Player = ({ children }: { children: ReactNode }) => {
+  const { songs: Allsongs } = useSongs();
   const player = usePlayer();
   const { song } = useGetSongById(player.activeId);
-  const { user } = useUser();
+  const imageURL = useLoadImage(song);
   const songURL = useLoadSong(song!);
-
-  const onPlayNext = () => {
-    if (player.ids.length === 0) {
-      return;
-    }
-
-    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
-    if (currentIndex + 1 === player.ids.length) {
-      player.setId(player.ids[0]);
-    } else {
-      const nextIndex = player.ids[currentIndex + 1];
-      player.setId(nextIndex);
-    }
-  };
-  const onPlayPrevious = () => {
-    if (player.ids.length === 0) {
-      return;
-    }
-    const currentIndex = player.ids.findIndex((id) => id === player.activeId);
-    if (currentIndex === 0) {
-      player.setId(player.ids[player.ids.length - 1]);
-    } else {
-      const previousIndex = player.ids[currentIndex - 1];
-      player.setId(previousIndex);
-    }
-  };
+  const { library } = useLibrary();
   return (
-    <AppBar position="fixed" color="secondary" sx={{ top: "auto", bottom: 0 }}>
-      <MainSideBar songs={songs}>{children}</MainSideBar>
-      {!!player.activeId && (
-        <Toolbar
-          sx={{
-            maxHeight: !!player.activeId ? "50px" : "0px",
-          }}
-        >
-          {song && (
-            <PlayerContent
-              song={song}
-              songURL={songURL}
-              user={user}
-              key={songURL}
-              onNext={onPlayNext}
-              onPrev={onPlayPrevious}
-            />
-          )}
-        </Toolbar>
-      )}
+    <AppBar color="secondary" sx={{ top: "auto", bottom: 0 }}>
+      <MainSideBar songs={library}>{children}</MainSideBar>
+      <MainSongPlayer
+        songs={Allsongs}
+        song={song}
+        songUrl={songURL}
+        key={songURL}
+        imageURL={imageURL}
+      />
     </AppBar>
   );
 };

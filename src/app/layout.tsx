@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import EncodeFont from "@/fonts/encode";
-import MainSideBar from "@/components/sidebar/MainSideBar";
+import EncodeFont from "@/fonts/encode"; 
 import SupabaseProvider from "@/Providers/SupaBaseProvider";
 import UserProvider from "@/Providers/UserProvider";
 import ModalProvider from "@/Providers/ModalProvider";
 import ToastProvider from "@/Providers/ToastProvider";
-import CustomThemeProvider from "@/Providers/CustomThemeProvider";
-import getSongsByUserID from "@/actions/getSongsByUserID";
+import CustomThemeProvider from "@/Providers/CustomThemeProvider"; 
 import Player from "@/components/Player/Player";
 
 export const metadata: Metadata = {
@@ -19,8 +17,7 @@ export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
-  const myLibrary = await getSongsByUserID();
+}) { 
 
   return (
     <html lang="en">

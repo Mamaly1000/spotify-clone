@@ -4,13 +4,23 @@ import CustomButton from "../inputs/Button";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import { PauseRounded, PlayArrow } from "@mui/icons-material";
+import LikeButton from "../inputs/LikeButton";
+import { Song } from "@/types/song";
+import { twMerge } from "tailwind-merge";
 
 const PlayerNavigation = ({
   onNext,
   onPrev,
   handlePlay,
   isPlaying,
+  song,
+  displayLike = false,
+  disabled,
 }: {
+  disabled: "unloaded" | "loading" | "loaded";
+
+  displayLike?: boolean;
+  song?: Song | null;
   isPlaying: boolean;
   onNext: () => void;
   onPrev: () => void;
@@ -31,7 +41,12 @@ const PlayerNavigation = ({
         sx={{ background: "var(--primary-color) !important" }}
         buttonType="icon"
         color="primary"
-        onClick={handlePlay}
+        className={twMerge(
+          disabled !== "loaded" ? "animate-pulse" : "animate-none"
+        )}
+        onClick={() => {
+          handlePlay();
+        }}
       >
         {isPlaying ? (
           <PauseRounded />
@@ -42,6 +57,7 @@ const PlayerNavigation = ({
       <CustomButton onClick={onNext} buttonType="icon" aria-label="next">
         <SkipNextIcon />
       </CustomButton>
+      {displayLike && <LikeButton song={song} />}
     </Stack>
   );
 };

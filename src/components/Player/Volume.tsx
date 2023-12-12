@@ -1,4 +1,4 @@
-import * as React from "react"; 
+import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Slider from "@mui/material/Slider";
 import VolumeDown from "@mui/icons-material/VolumeDown";
@@ -9,7 +9,9 @@ export default function Volume({
   value,
   onChange,
   toggleVolume,
+  volUp,
 }: {
+  volUp: () => void;
   toggleVolume: () => void;
   value: number;
   onChange: (value: number) => void;
@@ -26,11 +28,18 @@ export default function Volume({
         onChange={(_e, val) => {
           onChange(typeof val === "object" ? (val[0] as number) : val);
         }}
-        max={100}
+        max={1}
         min={0}
         valueLabelDisplay={"auto"}
       />
-      <VolumeUp />
+      <IconButton
+        onClick={() => {
+          volUp();
+          onChange(1);
+        }}
+      >
+        <VolumeUp />
+      </IconButton>
     </Stack>
   );
 }

@@ -18,7 +18,7 @@ const useSongs = () => {
 
     if (error) {
       toast.error(error.message);
-      console.log(error.message);
+      console.log(error);
     }
     return (data as any) || [];
   };

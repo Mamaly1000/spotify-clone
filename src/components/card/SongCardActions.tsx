@@ -16,7 +16,7 @@ const SongCardActions = ({
   return (
     <div
       className={twMerge(
-        `z-20 group-hover:translate-y-0 translate-y-[100px] group-hover:opacity-100 opacity-0 absolute top-2 end-0  min-w-fit gap-2 flex items-start justify-start flex-wrap px-2  `,
+        `z-20 group-hover:translate-y-0 md:translate-y-[100px] group-hover:opacity-100 md:opacity-0 absolute top-2 end-0  min-w-fit gap-2 flex items-start justify-start flex-wrap px-2  `,
         className
       )}
     >

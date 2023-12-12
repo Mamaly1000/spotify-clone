@@ -13,6 +13,7 @@ import Loader from "../loader/Loader";
 import usePlayer from "@/hooks/usePlayer";
 import useOnPlay from "@/hooks/useOnPlay";
 import useSongs from "@/hooks/useSongs";
+import CustomSidebarDrawer from "./CustomSidebarDrawer";
 
 const MainSideBar = ({
   children,
@@ -49,8 +50,14 @@ const MainSideBar = ({
   return (
     <Box
       sx={{
-        minHeight: player.activeId ? "calc(100vh - 60px) !important" : "100vh",
-        maxHeight: player.activeId ? "calc(100vh - 60px) !important" : "100vh",
+        minHeight: {
+          xs: "100vh",
+          md: player.activeId ? "calc(100vh - 60px) !important" : "100vh",
+        },
+        maxHeight: {
+          xs: "100vh",
+          md: player.activeId ? "calc(100vh - 60px) !important" : "100vh",
+        },
         overflow: "auto",
         color: "inherit",
         background: "inherit",
@@ -112,7 +119,7 @@ const MainSideBar = ({
         sx={{
           display: "flex",
           minHeight: "content-fit",
-          maxHeight: player.activeId ? "90vh" : "100vh",
+          maxHeight: { xs: "100vh", md: player.activeId ? "90vh" : "100vh" },
           overflow: "auto",
           ...style,
           pb: "100px !important",
@@ -121,6 +128,7 @@ const MainSideBar = ({
       >
         {children}
       </Box>
+      <CustomSidebarDrawer songs={songs} />
     </Box>
   );
 };
