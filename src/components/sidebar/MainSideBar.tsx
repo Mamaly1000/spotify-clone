@@ -1,8 +1,8 @@
 "use client";
 import { Add, Home, MusicNote, Search } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
-import { usePathname } from "next/navigation";
-import React, { ReactNode, useMemo } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { ReactNode, useEffect, useMemo, useState } from "react";
 import CustomList from "../list/CustomList";
 import { useUser } from "@/hooks/useUser";
 import useAuthModal from "@/hooks/useAuthModal";
@@ -13,7 +13,7 @@ import Loader from "../loader/Loader";
 import usePlayer from "@/hooks/usePlayer";
 import useOnPlay from "@/hooks/useOnPlay";
 import useSongs from "@/hooks/useSongs";
-import CustomSidebarDrawer from "./CustomSidebarDrawer";
+import SidebarDrawer from "./SidebarDrawer";
 
 const MainSideBar = ({
   children,
@@ -23,29 +23,37 @@ const MainSideBar = ({
   songs?: Song[] | null;
 }) => {
   const { style } = useSongs();
+  const router = useRouter();
   const player = usePlayer();
   const pathname = usePathname();
   const onPlay = useOnPlay(songs!);
   const { user, isLoading } = useUser();
   const authModal = useAuthModal();
   const uploadModal = useUploadModal();
+  const [selectedPath, setSelectedPath] = useState("/");
   const routes = useMemo(
     () => [
       {
         label: "Home",
-        active: pathname !== "/search",
+        active: selectedPath === "/",
         href: "/",
         icon: <Home />,
+        onClick: () => setSelectedPath("/"),
       },
       {
         label: "Search",
-        active: pathname === "/search",
+        active: selectedPath.includes("/search"),
         href: "/search",
+        onClick: () => setSelectedPath("/search"),
         icon: <Search />,
       },
     ],
-    []
+    [router, pathname]
   );
+
+  useEffect(() => {
+    setSelectedPath(pathname);
+  }, [router, pathname]);
 
   return (
     <Box
@@ -67,14 +75,13 @@ const MainSideBar = ({
     >
       <Box
         sx={{
-          display: { xs: "none", md: "flex" },
           minHeight: "100%",
           overflow: "auto",
           color: "inherit",
           position: "relative",
           maxHeight: "80vh",
         }}
-        className="bg-secondary col-span-3 p-10   items-start justify-start gap-3 flex-col overflow-y-auto"
+        className="bg-secondary col-span-3 p-10  hidden lg:flex items-start justify-start gap-3 flex-col overflow-y-auto"
       >
         <CustomList routes={routes} />
         <CustomList
@@ -115,6 +122,7 @@ const MainSideBar = ({
             ))}
         </CustomList>
       </Box>
+      <SidebarDrawer routes={routes} songs={songs} />
       <Box
         sx={{
           display: "flex",
@@ -124,11 +132,10 @@ const MainSideBar = ({
           ...style,
           pb: "100px !important",
         }}
-        className=" min-w-full col-span-12 md:col-span-9  "
+        className=" min-w-full col-span-12 lg:col-span-9  "
       >
         {children}
       </Box>
-      <CustomSidebarDrawer songs={songs} />
     </Box>
   );
 };

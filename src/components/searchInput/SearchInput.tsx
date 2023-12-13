@@ -47,7 +47,7 @@ const SearchInput = () => {
           InputLabelProps={{
             sx: {
               background: "var(--secondary-color)",
-              textTransform: "capitalize",
+              textTransform: "capitalize",color:"#ffffff"
             },
           }}
         />

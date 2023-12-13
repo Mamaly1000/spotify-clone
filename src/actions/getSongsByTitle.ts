@@ -16,6 +16,7 @@ export const getSongsByTitle = async (title?: string): Promise<Song[]> => {
     .from("songs")
     .select("*")
     .ilike("title", `%${title}%`)
+    .ilike("singer", `%${title}%`)
     .order("created_at", { ascending: false });
 
   if (error) {

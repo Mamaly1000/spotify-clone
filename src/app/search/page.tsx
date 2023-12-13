@@ -16,7 +16,7 @@ const page: FC<SearchPageProps> = async ({ searchParams: { title } }) => {
   const searchedSongs = await getSongsByTitle(title);
   const allsongs = await getSongs();
   return (
-    <main className="relative min-w-full max-w-full   flex flex-col bg-gradient-to-b from-primary to-secondary items-start justify-start  min-h-screen overflow-auto max-h-screen">
+    <main className="relative min-w-full max-w-full flex flex-col items-start justify-start min-h-screen max-h-fit">
       <CustomHeader />
       <h1
         style={{ ...OrbitFont.style, textShadow: "0 0 10px #ffffff" }}

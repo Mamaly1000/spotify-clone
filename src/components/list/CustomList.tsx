@@ -3,7 +3,7 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { Box, DialogTitle, Divider, IconButton } from "@mui/material";
 import CustomButton from "../inputs/Button";
@@ -30,18 +30,11 @@ export default function CustomList({
     active: boolean;
     href: string;
     icon: React.JSX.Element;
+    onClick: () => void;
   }>;
   background?: string;
 }) {
   const router = useRouter();
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
-
-  const handleListItemClick = (
-    _event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number
-  ) => {
-    setSelectedIndex(index);
-  };
 
   return (
     <List
@@ -88,15 +81,23 @@ export default function CustomList({
       {routes?.map((route, i) => {
         return (
           <ListItemButton
-            selected={selectedIndex === 0 || route.active}
+            selected={route.active}
             onClick={(event) => {
               router.push(route.href);
-              handleListItemClick(event, 0);
+              route.onClick();
             }}
             className={twMerge(!route.active ? `text-text` : `text-primary`)}
             key={route.href}
           >
-            <ListItemIcon sx={{ color: "inherit" }}>{route.icon}</ListItemIcon>
+            <ListItemIcon
+              sx={{
+                color: route.active ? "var(--primary-color)" : "#ffffff",
+                fill: route.active ? "var(--primary-color)" : "#ffffff",
+                stroke: route.active ? "var(--primary-color)" : "#ffffff",
+              }}
+            >
+              {route.icon}
+            </ListItemIcon>
             <ListItemText primary={route.label} />
           </ListItemButton>
         );

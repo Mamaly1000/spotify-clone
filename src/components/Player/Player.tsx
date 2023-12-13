@@ -8,8 +8,8 @@ import MainSideBar from "../sidebar/MainSideBar";
 import useSongs from "@/hooks/useSongs";
 import useLoadImage from "@/hooks/useLoadImage";
 import MainSongPlayer from "./MainSongPlayer";
-import CustomSidebarDrawer from "../sidebar/CustomSidebarDrawer";
 import useLibrary from "@/hooks/useLibrary";
+import SidebarDrawer from "../sidebar/SidebarDrawer";
 const Player = ({ children }: { children: ReactNode }) => {
   const { songs: Allsongs } = useSongs();
   const player = usePlayer();
@@ -19,7 +19,7 @@ const Player = ({ children }: { children: ReactNode }) => {
   const { library } = useLibrary();
   return (
     <AppBar color="secondary" sx={{ top: "auto", bottom: 0 }}>
-      <MainSideBar songs={library}>{children}</MainSideBar>
+      <MainSideBar songs={library}>{children}</MainSideBar> 
       <MainSongPlayer
         songs={Allsongs}
         song={song}

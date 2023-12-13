@@ -24,7 +24,7 @@ const UpComingSong = ({
   };
 
   return (
-    <div className="min-w-full md:min-w-[40%] min-h-[300px] max-h-[500px] rounded-lg drop-shadow-2xl p-4 flex flex-col justify-center items-center md:justify-start md:items-start gap-3">
+    <div className="hidden lg:flex min-w-full md:min-w-[40%] min-h-[300px] max-h-[500px] rounded-lg drop-shadow-2xl p-4   flex-col justify-center items-center md:justify-start md:items-start gap-3">
       <h3
         className="text-[.9rem] md:text-[1.2rem] font-bold font-orbit capitalize min-w-full text-center md:text-start"
         style={OrbitFont.style}

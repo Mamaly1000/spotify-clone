@@ -5,17 +5,21 @@ import { Song } from "@/types/song";
 import { useUser } from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
 import Loader from "../loader/Loader";
+import useAuthModal from "@/hooks/useAuthModal";
+import useLikedSongs from "@/hooks/useLikedSongs";
 
-const LikedSongsList = ({ songs }: { songs: Song[] }) => {
+const LikedSongsList = () => {
+  const { likedSongs, loading } = useLikedSongs();
   const { isLoading, user } = useUser();
   const router = useRouter();
+  const authmodal = useAuthModal();
   useEffect(() => {
     if (!isLoading && !user) {
-      router.replace("/");
+      authmodal.onOpen();
     }
   }, [user, isLoading, router]);
 
-  return !isLoading ? <SongsList songs={songs} /> : <Loader />;
+  return !isLoading || !loading ? <SongsList songs={likedSongs} /> : <Loader />;
 };
 
 export default LikedSongsList;

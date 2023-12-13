@@ -130,8 +130,7 @@ const MainSongPlayer = ({
             maxHeight: !!player.activeId ? "50px" : "0px",
             display: { xs: "none", md: "block" },
           }}
-        >
-          sddsfdsf
+        > 
           {song && (
             <PlayerContent
               song={song}
