@@ -13,12 +13,10 @@ export const metadata: Metadata = {
   icons: SpotifyIcon.src,
 };
 
-export const revalidate = 0;
-
-const LikedSongs = async () => {
+const LikedSongs = () => {
   return (
     <div className="relative min-w-full max-w-full flex flex-col items-start justify-start  min-h-screen   max-h-fit">
-      <CustomHeader /> 
+      <CustomHeader />
       <div className="min-w-full flex items-center justify-start gap-5 flex-col md:flex-row p-5">
         <div className="relative aspect-video min-w-[150px] max-w-[150px] min-h-[150px] max-h-[150px]  rounded-lg drop-shadow-2xl ">
           <Image
