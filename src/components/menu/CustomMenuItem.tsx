@@ -21,7 +21,7 @@ const CustomMenuItem = ({
           background: "var(--primary-color)",
           color: "var(--text-color)",
         },
-        display: "flex",
+        display: { sx: "flex", md: text === "Library" ? "none" : "flex" },
         justifyContent: "space-between",
         alignItems: "center",
         gap: 1,

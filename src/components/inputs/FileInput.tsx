@@ -15,10 +15,10 @@ const FileInput = ({
   disabled?: boolean;
 }) => {
   return (
-    <div className="min-w-full flex flex-col items-start justify-start gap-1 text-text ">
+    <div className="min-w-full max-w-full flex flex-col items-start justify-start gap-1 text-text overflow-hidden">
       <span>select your {label} :</span>
       <input
-        className="text-text p-3 rounded-[5px] border-[1px] border-accent bg-transparent min-w-full file:border-0 file:bg-transparent 
+        className="text-text max-w-full p-3 rounded-[5px] border-[1px] border-accent bg-transparent min-w-full file:border-0 file:bg-transparent 
         file:text-sm 
         file:font-medium "
         type="file"

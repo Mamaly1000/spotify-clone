@@ -32,6 +32,8 @@ import { useUser } from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import usePlayer from "@/hooks/usePlayer";
+import ViewSidebarIcon from "@mui/icons-material/ViewSidebar";
+import useSidebarDrawer from "@/hooks/useSidebarDrawer";
 
 interface Props {
   window?: () => Window;
@@ -56,6 +58,7 @@ function CustomHeader(_props: any) {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
+  const sidebar = useSidebarDrawer();
   const supabaseClient = useSupabaseClient();
   const { user, isLoading } = useUser();
   const { onOpen } = useAuthModal();
@@ -88,6 +91,17 @@ function CustomHeader(_props: any) {
                 handleLogout();
               },
             },
+            {
+              label: "Library",
+              icon: (
+                <ViewSidebarIcon
+                  sx={{ color: "var(--text-color) !important" }}
+                />
+              ),
+              fn: () => {
+                sidebar.onOpen();
+              },
+            },
           ]
         : [
             {
@@ -95,6 +109,17 @@ function CustomHeader(_props: any) {
               icon: <Login sx={{ color: "var(--text-color) !important" }} />,
               fn: () => {
                 onOpen();
+              },
+            },
+            {
+              label: "Library",
+              icon: (
+                <ViewSidebarIcon
+                  sx={{ color: "var(--text-color) !important" }}
+                />
+              ),
+              fn: () => {
+                sidebar.onOpen();
               },
             },
           ],

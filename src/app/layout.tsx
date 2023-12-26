@@ -1,24 +1,25 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import EncodeFont from "@/fonts/encode"; 
+import EncodeFont from "@/fonts/encode";
 import SupabaseProvider from "@/Providers/SupaBaseProvider";
 import UserProvider from "@/Providers/UserProvider";
 import ModalProvider from "@/Providers/ModalProvider";
 import ToastProvider from "@/Providers/ToastProvider";
-import CustomThemeProvider from "@/Providers/CustomThemeProvider"; 
+import CustomThemeProvider from "@/Providers/CustomThemeProvider";
 import Player from "@/components/Player/Player";
+import { SpotifyIcon } from "@/assets/pics";
 
 export const metadata: Metadata = {
   title: "wellcome to your spotify",
   description: "begin a great musical adventure with us.",
+  icons: SpotifyIcon.src,
 };
 export const revalidate = 0;
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) { 
-
+}) {
   return (
     <html lang="en">
       <body

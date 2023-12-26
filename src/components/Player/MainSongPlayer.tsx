@@ -1,3 +1,4 @@
+"use client";
 import usePlayer from "@/hooks/usePlayer";
 import { useUser } from "@/hooks/useUser";
 import { Song } from "@/types/song";
@@ -6,7 +7,6 @@ import BottomPlayerDrawer from "./BottomPlayerDrawer";
 import { Toolbar } from "@mui/material";
 import PlayerContent from "./PlayerContent";
 import { Howl } from "howler";
-import toast from "react-hot-toast";
 const MainSongPlayer = ({
   songs,
   song,
@@ -18,57 +18,57 @@ const MainSongPlayer = ({
   songUrl: string;
   imageURL: string | null;
 }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVol] = useState(1);
-  const [paused, setPaused] = useState(false);
+  const [playerOptions, setPlayerOptions] = useState({
+    playing: false,
+    loaded: false,
+    loop: false,
+    mute: false,
+    volume: 1,
+    seek: 0.0,
+    rate: 1,
+    isSeeking: false,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    duration: 0,
+  });
   const { user } = useUser();
   const player = usePlayer();
-  let sound = useMemo(() => {
+  const sound = useMemo(() => {
     return new Howl({
       src: [songUrl],
-      onend: function () {
-        setIsPlaying(false);
-        onPlayNext();
-        console.log("song end");
-      },
-      onpause: function () {
-        setIsPlaying(false);
-        setPaused(true);
-        console.log("pause song");
-      },
       onplay: () => {
-        console.log("song played");
-        setIsPlaying(true);
+        setPlayerOptions({ ...playerOptions, playing: true, mute: false });
       },
-      onplayerror: () => {
-        if (songUrl) {
-          toast.error("unable to play the song");
-        }
+      onpause: () => {
+        setPlayerOptions({ ...playerOptions, playing: false, mute: true });
       },
-      onloaderror: () => {
-        if (songUrl) {
-          console.error("unable to load sound");
-        }
+      volume: playerOptions.volume,
+      onend: () => {
+        onPlayNext();
       },
-      volume: volume,
+      onload: () => {
+        sound.play();
+      },
+      onmute: () => {
+        setPlayerOptions({ ...playerOptions, volume: 0 });
+      },
       html5: true,
     });
-  }, [songUrl, volume]);
+  }, [songUrl]);
   const handlePlay = () => {
-    if (!isPlaying) {
+    if (!playerOptions.playing) {
       sound.play();
-      console.log("handle play with onclick");
     } else {
       sound.pause();
-      console.log("handle pause with onclick");
     }
   };
   const toggleVolume = () => {
-    setVol(volume === 0 ? 1 : 0);
-    sound.volume(volume === 0 ? 1 : 0);
-  };
-  const volUp = () => {
-    sound.volume(1);
+    setPlayerOptions({
+      ...playerOptions,
+      volume: playerOptions.volume ? 0 : 1,
+    });
+    sound.volume(playerOptions.volume ? 0 : 1);
   };
   const onPlayNext = () => {
     if (player.ids.length === 0) {
@@ -97,40 +97,48 @@ const MainSongPlayer = ({
   };
 
   useEffect(() => {
-    if (!paused) {
+    if (sound && sound.state() === "loaded") sound.play();
+  }, []);
+
+  useEffect(() => {
+    if (!playerOptions.mute) {
       sound.play();
     }
     return () => {
       sound?.unload();
     };
   }, [sound]);
-
   return (
     <Fragment>
       {songs && songs.length > 0 && !!song && (
         <BottomPlayerDrawer
+          songs={songs}
+          disable={false}
+          song={song}
           onNext={onPlayNext}
           onPrev={onPlayPrevious}
-          songs={songs}
-          disable={!user && !song}
           handlePlay={handlePlay}
-          isPlaying={isPlaying}
-          setVol={setVol}
-          song={song}
-          toggleVolume={toggleVolume}
-          volume={volume}
-          volUp={volUp}
           imageURL={imageURL}
+          isPlaying={playerOptions.playing}
+          setVol={(vol) => setPlayerOptions({ ...playerOptions, volume: vol })}
+          toggleVolume={toggleVolume}
+          volume={playerOptions.volume}
+          volUp={toggleVolume}
           disabled={sound.state()}
         />
       )}
       {!!player.activeId && (
         <Toolbar
           sx={{
-            maxHeight: !!player.activeId ? "50px" : "0px",
-            display: { xs: "none", md: "block" },
+            maxHeight: !!player.activeId ? "45px" : "0px",
+            display: { xs: "none", md: "flex" },
+            padding: 0,
+            justifyContent: "center",
+            alignItems: "center",
+            position: "relative",
+            zIndex: 199999,
           }}
-        > 
+        >
           {song && (
             <PlayerContent
               song={song}
@@ -140,11 +148,13 @@ const MainSongPlayer = ({
               onPrev={onPlayPrevious}
               handlePlay={handlePlay}
               imageURL={imageURL}
-              isPlaying={isPlaying}
-              setVol={setVol}
+              isPlaying={playerOptions.playing}
+              setVol={(vol) =>
+                setPlayerOptions({ ...playerOptions, volume: vol })
+              }
               toggleVolume={toggleVolume}
-              volume={volume}
-              volUp={volUp}
+              volume={playerOptions.volume}
+              volUp={toggleVolume}
               disabled={sound.state()}
             />
           )}

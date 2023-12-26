@@ -5,6 +5,14 @@ import SongsList from "@/components/list/SongsList";
 import OrbitFont from "@/fonts/orbit";
 import SearchInput from "@/components/searchInput/SearchInput";
 import getSongs from "@/actions/getSongs";
+import { SpotifyIcon } from "@/assets/pics";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Search Your Song!",
+  description: "begin a great musical adventure with us.",
+  icons: SpotifyIcon.src,
+};
 
 interface SearchPageProps {
   searchParams: {
@@ -16,7 +24,7 @@ const page: FC<SearchPageProps> = async ({ searchParams: { title } }) => {
   const searchedSongs = await getSongsByTitle(title);
   const allsongs = await getSongs();
   return (
-    <main className="relative min-w-full max-w-full flex flex-col items-start justify-start min-h-screen max-h-fit">
+    <main className="relative min-w-full bg-transparent max-w-full flex flex-col items-start justify-start min-h-screen max-h-fit">
       <CustomHeader />
       <h1
         style={{ ...OrbitFont.style, textShadow: "0 0 10px #ffffff" }}

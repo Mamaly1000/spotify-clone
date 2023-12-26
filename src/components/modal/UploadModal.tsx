@@ -108,6 +108,7 @@ const UploadModal = () => {
       open={isOpen}
       setOpen={handler}
       dialog={{ title: "Upload your song" }}
+      disable={isLoading}
     >
       {isLoading ? (
         <Loader message="uploading the song" />

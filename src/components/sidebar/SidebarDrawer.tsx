@@ -24,13 +24,6 @@ const SidebarDrawer = ({
 
   return (
     <Box sx={{ display: { md: "none" } }} position={"fixed"} zIndex={3000}>
-      <CustomButton
-        onClick={() => sidebar.onOpen()}
-        buttonType="icon"
-        className="fixed top-[75px] end-[40px]"
-      >
-        <ViewSidebarIcon />
-      </CustomButton>
       <Drawer
         anchor={"left"}
         open={sidebar.isOpen}

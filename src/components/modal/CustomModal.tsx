@@ -10,6 +10,7 @@ import CustomButton from "../inputs/Button";
 import { Close } from "@mui/icons-material";
 import { Box, Slide } from "@mui/material";
 import { BootstrapDialog } from "@/styles/Dialog";
+import toast from "react-hot-toast";
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement;
@@ -44,6 +45,7 @@ interface Props {
   open?: boolean;
   setOpen?: (e?: boolean) => void;
   children?: React.ReactNode;
+  disable?: boolean;
 }
 
 const CustomModal: React.FC<Props> = ({
@@ -52,6 +54,7 @@ const CustomModal: React.FC<Props> = ({
   setOpen,
   dialog,
   children,
+  disable = false,
 }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -66,7 +69,11 @@ const CustomModal: React.FC<Props> = ({
 
   const handleClose = () => {
     if (setOpen) {
-      setOpen(false);
+      if (disable) {
+        toast.error("Please wait until proccessing finish!");
+      } else {
+        setOpen(false);
+      }
     } else {
       throw new Error("you must define a setOpen function for your modal");
     }

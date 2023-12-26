@@ -34,7 +34,7 @@ export default function BottomPlayerDrawer({
   song: Song;
   toggleVolume: () => void;
   volume: number;
-  setVol: React.Dispatch<React.SetStateAction<number>>;
+  setVol: (vol: number) => void;
   onNext: () => void;
   onPrev: () => void;
   songs: Song[];
@@ -45,7 +45,7 @@ export default function BottomPlayerDrawer({
     <Box sx={{ display: { md: "none" } }}>
       <CustomButton
         className={twMerge(
-          "fixed bottom-5 start-3 z-[300000] bg-secondary border-[1px] rounded-lg drop-shadow-2xl border-primary",
+          "fixed bottom-5 start-3 z-[300000] bg-secondary border-[1px] rounded-lg drop-shadow-2xl border-primary hover:bg-secondary hover:scale-105 transition-all",
           disable ? "animate-pulse" : "animate-none"
         )}
         sx={{

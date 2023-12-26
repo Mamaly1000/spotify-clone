@@ -42,7 +42,7 @@ const PlayerContent = ({
   user: User | null;
   imageURL: string | null;
   toggleVolume: () => void;
-  setVol: Dispatch<SetStateAction<number>>;
+  setVol: (val: number) => void;
 }) => {
   return (
     <Stack
@@ -53,6 +53,10 @@ const PlayerContent = ({
         minWidth: "100%",
         flexDirection: { xs: "column", md: "row" },
         gap: { xs: 5 },
+        padding: 0,
+        alignItems: "center",
+        position: "relative",
+        zIndex: 10000,
       }}
     >
       <Stack

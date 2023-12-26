@@ -19,14 +19,16 @@ const Player = ({ children }: { children: ReactNode }) => {
   const { library } = useLibrary();
   return (
     <AppBar color="secondary" sx={{ top: "auto", bottom: 0 }}>
-      <MainSideBar songs={library}>{children}</MainSideBar> 
-      <MainSongPlayer
-        songs={Allsongs}
-        song={song}
-        songUrl={songURL}
-        key={songURL}
-        imageURL={imageURL}
-      />
+      <MainSideBar songs={library}>{children}</MainSideBar>
+      {!!player.activeId && (
+        <MainSongPlayer
+          songs={Allsongs}
+          song={song}
+          songUrl={songURL}
+          key={songURL}
+          imageURL={imageURL}
+        />
+      )}
     </AppBar>
   );
 };
