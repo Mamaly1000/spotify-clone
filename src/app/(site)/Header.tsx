@@ -34,6 +34,7 @@ import toast from "react-hot-toast";
 import usePlayer from "@/hooks/usePlayer";
 import ViewSidebarIcon from "@mui/icons-material/ViewSidebar";
 import useSidebarDrawer from "@/hooks/useSidebarDrawer";
+import Image from "next/image";
 
 interface Props {
   window?: () => Window;
@@ -123,7 +124,7 @@ function CustomHeader(_props: any) {
               },
             },
           ],
-    [user]
+    [user, handleLogout, onOpen, sidebar]
   );
 
   return (
@@ -140,7 +141,13 @@ function CustomHeader(_props: any) {
               sx={{ justifyContent: { md: "space-between" } }}
             >
               <Box sx={{ display: "flex", mr: 1 }}>
-                <img src={SpotifyIcon.src} className="w-[50px] h-[50px]" />
+                <Image
+                  src={SpotifyIcon.src}
+                  alt="spotify-logo"
+                  width={14}
+                  height={14}
+                  className="min-w-[50px] min-h-[50px] max-w-[50px] max-h-[50px] "
+                />
               </Box>
               <Typography
                 variant="h5"

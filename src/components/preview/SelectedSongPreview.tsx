@@ -27,14 +27,16 @@ const SelectedSongPreview = ({ songs }: { songs?: Song[] | null }) => {
     { active: time > 12 && time <= 18, label: "good afternoon" },
     { active: time > 18 && time <= 24, label: "good night" },
   ];
+  const firstMusic = useLoadImage(songs![0]);
+  const activeMusic = useLoadImage(
+    songs!.find((s) => s.id === player.activeId)
+  );
   const mainPicHandler = (): string => {
     if (songs && !player.activeId) {
-      return useLoadImage(songs[0]) || MainPic.src;
+      return firstMusic || MainPic.src;
     }
     if (songs && player.activeId) {
-      return (
-        useLoadImage(songs.find((s) => s.id === player.activeId)) || MainPic.src
-      );
+      return activeMusic || MainPic.src;
     }
     return MainPic.src;
   };

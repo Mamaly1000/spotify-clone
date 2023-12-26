@@ -97,17 +97,13 @@ const MainSongPlayer = ({
   };
 
   useEffect(() => {
-    if (sound && sound.state() === "loaded") sound.play();
-  }, []);
-
-  useEffect(() => {
     if (!playerOptions.mute) {
       sound.play();
     }
     return () => {
       sound?.unload();
     };
-  }, [sound]);
+  }, [sound, playerOptions.mute]);
   return (
     <Fragment>
       {songs && songs.length > 0 && !!song && (

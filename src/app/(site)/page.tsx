@@ -3,13 +3,8 @@ import CustomHeader from "./Header";
 import SelectedSongPreview from "@/components/preview/SelectedSongPreview";
 import SongsList from "@/components/list/SongsList";
 import useSongs from "@/hooks/useSongs";
-import { Metadata } from "next";
-import { SpotifyIcon } from "@/assets/pics";
-export const metadata: Metadata = {
-  title: "wellcome to your spotify!",
-  description: "begin a great musical adventure with us.",
-  icons: SpotifyIcon.src,
-};
+ 
+ 
 export const revalidate = 0;
 export default function Home() {
   const { songs } = useSongs();

@@ -60,4 +60,5 @@ const CustomButton = forwardRef<HTMLButtonElement, ButtonProps>(
     );
   }
 );
+CustomButton.displayName = "CustomButton";
 export default CustomButton;

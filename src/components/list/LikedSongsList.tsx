@@ -17,7 +17,7 @@ const LikedSongsList = () => {
     if (!isLoading && !user) {
       authmodal.onOpen();
     }
-  }, [user, isLoading, router]);
+  }, [user, isLoading, router, authmodal]);
 
   return !isLoading || !loading ? <SongsList songs={likedSongs} /> : <Loader />;
 };

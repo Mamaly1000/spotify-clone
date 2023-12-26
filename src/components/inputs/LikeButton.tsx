@@ -40,7 +40,7 @@ const LikeButton = ({
     };
 
     if (user) fetchData();
-  }, [song, supabaseClient, user?.id]);
+  }, [song, supabaseClient, user]);
 
   const likeHandler = async () => {
     if (!user) {

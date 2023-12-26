@@ -1,8 +1,9 @@
+"use client";
 import useLoadImage from "@/hooks/useLoadImage";
 import { Song } from "@/types/song";
 import { Card, Typography } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import cover from "@/assets/cover.jpg";
 import CustomButton from "../inputs/Button";
 import { PlayArrow } from "@mui/icons-material";
@@ -14,9 +15,14 @@ const LibraryCard = ({
   onClick: () => void;
   song?: Song | null;
 }) => {
-  const imagePathname: string = !!song
-    ? (useLoadImage(song) as string)
-    : cover.src;
+  const [image, setImage] = useState(cover.src);
+  const imageUrl = useLoadImage(song!);
+  useEffect(() => {
+    if (song && image !== cover.src) {
+      setImage(imageUrl || cover.src);
+    }
+  }, [song, imageUrl, image]);
+
   return (
     <Card
       sx={{
@@ -38,7 +44,7 @@ const LibraryCard = ({
       <div className="relative aspect-video min-h-[60px] min-w-[60px] max-h-[60px] max-w-[60px]">
         <Image
           alt={song?.title || ""}
-          src={imagePathname}
+          src={image}
           fill
           className="object-cover"
         />

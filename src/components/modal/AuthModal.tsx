@@ -28,7 +28,7 @@ const AuthModal = () => {
     if (session) {
       toast.success("wellcome back");
     }
-  }, []);
+  }, [session]);
 
   const onChange = (open?: boolean) => {
     if (!open) {
