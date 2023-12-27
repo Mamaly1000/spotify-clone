@@ -6,7 +6,7 @@ import React, { Fragment, useEffect, useMemo, useState } from "react";
 import BottomPlayerDrawer from "./BottomPlayerDrawer";
 import { Toolbar } from "@mui/material";
 import PlayerContent from "./PlayerContent";
-import { Howl } from "howler";
+import { Howl } from "howler"; 
 const MainSongPlayer = ({
   songs,
   song,
@@ -43,7 +43,6 @@ const MainSongPlayer = ({
       onpause: () => {
         setPlayerOptions({ ...playerOptions, playing: false, mute: true });
       },
-      volume: playerOptions.volume,
       onend: () => {
         onPlayNext();
       },
@@ -53,6 +52,7 @@ const MainSongPlayer = ({
       onmute: () => {
         setPlayerOptions({ ...playerOptions, volume: 0 });
       },
+      volume: playerOptions.volume,
       html5: true,
     });
   }, [songUrl]);

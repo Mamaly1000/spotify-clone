@@ -3,28 +3,14 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { CssBaseline, Slide, useScrollTrigger } from "@mui/material";
 import OrbitFont from "@/fonts/orbit";
 import { SpotifyIcon } from "@/assets/pics";
-import { StyledMenu } from "@/styles/Menu";
 import CustomMenu from "@/components/menu/CustomMenu";
-import {
-  AppRegistration,
-  AppRegistrationOutlined,
-  Dashboard,
-  Login,
-  Logout,
-} from "@mui/icons-material";
+import { Login, Logout } from "@mui/icons-material";
 import CustomButton from "@/components/inputs/Button";
 import useAuthModal from "@/hooks/useAuthModal";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
@@ -141,13 +127,14 @@ function CustomHeader(_props: any) {
               sx={{ justifyContent: { md: "space-between" } }}
             >
               <Box sx={{ display: "flex", mr: 1 }}>
-                <Image
-                  src={SpotifyIcon.src}
-                  alt="spotify-logo"
-                  width={14}
-                  height={14}
-                  className="min-w-[50px] min-h-[50px] max-w-[50px] max-h-[50px] "
-                />
+                <div className="relative w-[50px] h-[50px]">
+                  <Image
+                    src={SpotifyIcon.src}
+                    alt="spotify-logo"
+                    fill
+                    className="min-w-[50px] min-h-[50px] max-w-[50px] max-h-[50px] "
+                  />
+                </div>
               </Box>
               <Typography
                 variant="h5"
