@@ -29,7 +29,7 @@ const LibraryCard = ({
         minWidth: "100%",
         display: "flex",
         alignItems: "center",
-        justifyContent: "start",
+        justifyContent: "space-between",
         gap: 2,
         background: "var(--secondary-color)",
         borderRadius: "5px",
@@ -41,24 +41,21 @@ const LibraryCard = ({
       }}
       className="drop-shadow-2xl group"
     >
-      <div className="relative aspect-video min-h-[60px] min-w-[60px] max-h-[60px] max-w-[60px]">
-        <Image
-          alt={song?.title || ""}
-          src={image}
-          fill
-          className="object-cover"
-        />
-      </div>
-      <div className="max-w-[120px] line-clamp-2 flex flex-col items-start justify-start gap-2 capitalize">
-        <Typography
-          className="text-[.9rem] font-bold font-orbit"
-          component="h4"
-        >
-          {song?.title}
-        </Typography>
-        <Typography className="text-[.8rem] " component="h5">
-          {song?.singer}
-        </Typography>
+      <div className="flex p-0 m-0 items-center justify-start gap-5">
+        <div className="relative aspect-video min-h-[60px] min-w-[60px] max-h-[60px] max-w-[60px]">
+          <Image
+            alt={song?.title || ""}
+            src={image}
+            fill
+            className="object-cover"
+          />
+        </div>
+        <div className="max-w-[120px] text-text line-clamp-2 flex flex-col items-start justify-start gap-2 capitalize">
+          <h4 className="text-[.8rem] font-bold font-orbit capitalize flex-nowrap">
+            {song?.title.split(" ").slice(0, 2).join(" ")+" ..."}
+          </h4>
+          <h5 className="text-[.75rem] font-light">{song?.singer}</h5>
+        </div>
       </div>
       <CustomButton
         className="group-hover:scale-100 scale-0 transition-all float-right absolute end-2"
