@@ -13,11 +13,8 @@ const LibraryCard = ({
   onClick,
 }: {
   onClick: () => void;
-  song?: Song | null;
+  song: Song;
 }) => {
-  if (!song) {
-    return null;
-  }
   const [image, setImage] = useState(cover.src);
   const imageUrl = useLoadImage(song);
   useEffect(() => {

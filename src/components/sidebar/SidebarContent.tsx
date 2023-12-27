@@ -32,7 +32,7 @@ const SidebarContent = ({
   const onPlay = useOnPlay(songs!);
   const { user, isLoading } = useUser();
   const authModal = useAuthModal();
-  const uploadModal = useUploadModal(); 
+  const uploadModal = useUploadModal();
   return (
     <div>
       <CustomList routes={routes} />
@@ -54,17 +54,20 @@ const SidebarContent = ({
         }}
       >
         {songs &&
-          songs?.map((song) => (
-            <LibraryCard
-              onClick={() => {
-                if (song && songs) {
-                  onPlay(song);
-                }
-              }}
-              song={song}
-              key={song.id}
-            />
-          ))}
+          songs?.map(
+            (song) =>
+              song && (
+                <LibraryCard
+                  onClick={() => {
+                    if (song && songs) {
+                      onPlay(song);
+                    }
+                  }}
+                  song={song}
+                  key={song.id}
+                />
+              )
+          )}
         {isLoading && <Loader message="loading your library" />}
         {!songs ||
           (!user && !isLoading && (

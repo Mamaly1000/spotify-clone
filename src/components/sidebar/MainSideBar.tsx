@@ -102,17 +102,20 @@ const MainSideBar = ({
           }}
         >
           {songs &&
-            songs?.map((song) => (
-              <LibraryCard
-                onClick={() => {
-                  if (song && songs) {
-                    onPlay(song);
-                  }
-                }}
-                song={song}
-                key={song.id}
-              />
-            ))}
+            songs?.map(
+              (song) =>
+                song && (
+                  <LibraryCard
+                    onClick={() => {
+                      if (song && songs) {
+                        onPlay(song);
+                      }
+                    }}
+                    song={song}
+                    key={song.id}
+                  />
+                )
+            )}
           {isLoading && <Loader message="loading your library" />}
           {!songs ||
             (!user && !isLoading && (
