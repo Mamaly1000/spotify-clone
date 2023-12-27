@@ -26,6 +26,7 @@
     "react-hook-form": "^7.48.2",
     "react-hot-toast": "^2.4.1",
     "react-howler": "^5.2.0",
+    "sharp": "^0.33.1",
     "stripe": "^14.7.0",
     "tailwind-merge": "^2.1.0",
     "uniqid": "^5.4.0",
