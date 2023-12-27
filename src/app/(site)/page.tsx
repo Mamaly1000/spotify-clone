@@ -10,8 +10,8 @@ export default function Home() {
   return (
     <main className="relative bg-transparent min-w-full max-w-full flex flex-col items-start justify-start min-h-full max-h-fit">
       <CustomHeader />
-      <SelectedSongPreview songs={songs} />
-      <SongsList songs={songs} />
+      <SelectedSongPreview songs={songs || []} />
+      <SongsList songs={songs || []} />
     </main>
   );
 }

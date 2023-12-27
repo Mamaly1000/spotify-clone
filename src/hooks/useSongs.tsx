@@ -5,8 +5,8 @@ import toast from "react-hot-toast";
 import { Song } from "@/types/song";
 import usePlayer from "./usePlayer";
 const useSongs = () => {
-  const [songs, setSongs] = useState<Song[]>();
-  const [theme, setTheme] = useState<string | null | undefined>(undefined);
+  const [songs, setSongs] = useState<Song[]>([]);
+  const [theme, setTheme] = useState<string | null | undefined>("");
   const player = usePlayer();
 
   const getSongs = async () => {
@@ -20,13 +20,13 @@ const useSongs = () => {
       toast.error(error.message);
       console.log(error);
     }
-    return (data as any) || [];
+    return !!data ? (data as any) : [];
   };
 
   useEffect(() => {
     getSongs().then((res) => {
       setSongs(res);
-      setTheme(res[0].color_theme);
+      setTheme(res[0].color_theme || "");
     });
   }, []);
 
@@ -37,7 +37,7 @@ const useSongs = () => {
   }, [player.activeId, songs]);
 
   const style = {
-    background: theme
+    background: !!theme
       ? theme.length <= 20
         ? `linear-gradient( to bottom ,${theme} 40%,var(--background-color) 100%)`
         : theme

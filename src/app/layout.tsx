@@ -14,7 +14,6 @@ export const metadata: Metadata = {
   description: "begin a great musical adventure with us.",
   icons: SpotifyIcon.src,
 };
-export const revalidate = 0;
 export default function RootLayout({
   children,
 }: {
