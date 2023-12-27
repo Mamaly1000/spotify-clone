@@ -7,12 +7,11 @@ import ModalProvider from "@/Providers/ModalProvider";
 import ToastProvider from "@/Providers/ToastProvider";
 import CustomThemeProvider from "@/Providers/CustomThemeProvider";
 import Player from "@/components/Player/Player";
-import { SpotifyIcon } from "@/assets/pics";
-
+import fav from "@/app/favicon.ico";
 export const metadata: Metadata = {
   title: "wellcome to your spotify",
   description: "begin a great musical adventure with us.",
-  icons: SpotifyIcon.src,
+  icons: fav.src,
 };
 export default function RootLayout({
   children,

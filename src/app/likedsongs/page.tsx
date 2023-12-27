@@ -5,12 +5,12 @@ import liked from "@/assets/liked.png";
 import LikedSongsList from "@/components/list/LikedSongsList";
 import CustomHeader from "../(site)/Header";
 import { Metadata } from "next";
-import { SpotifyIcon } from "@/assets/pics";
+import fav from "@/app/favicon.ico";
 
 export const metadata: Metadata = {
   title: "Your Liked Songs!",
   description: "begin a great musical adventure with us.",
-  icons: SpotifyIcon.src,
+  icons: fav.src,
 };
 
 const LikedSongs = () => {

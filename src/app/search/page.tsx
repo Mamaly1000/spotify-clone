@@ -4,14 +4,13 @@ import CustomHeader from "../(site)/Header";
 import SongsList from "@/components/list/SongsList";
 import OrbitFont from "@/fonts/orbit";
 import SearchInput from "@/components/searchInput/SearchInput";
-import getSongs from "@/actions/getSongs";
-import { SpotifyIcon } from "@/assets/pics";
+import getSongs from "@/actions/getSongs"; 
 import { Metadata } from "next";
-
+import fav from "@/app/favicon.ico";
 export const metadata: Metadata = {
   title: "Search Your Song!",
   description: "begin a great musical adventure with us.",
-  icons: SpotifyIcon.src,
+  icons: fav.src,
 };
 
 interface SearchPageProps {
